@@ -3,6 +3,7 @@ import Layout from "./Components/Layout";
 import Home from "./Page/Home";
 import SignIn from "./Page/SignIn";
 import Register from "./Page/Register";
+import PostForm from "./Page/PostForm";
 
 function App() {
   return (
@@ -13,6 +14,14 @@ function App() {
           element={
             <Layout>
               <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/post"
+          element={
+            <Layout>
+              <PostForm />
             </Layout>
           }
         />
