@@ -4,6 +4,8 @@ import Home from "./Page/Home";
 import SignIn from "./Page/SignIn";
 import Register from "./Page/Register";
 import PostForm from "./Page/PostForm";
+import Board from "./Page/Board";
+import Update from "./Page/Update";
 
 function App() {
   return (
@@ -22,6 +24,22 @@ function App() {
           element={
             <Layout>
               <PostForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/update/:id"
+          element={
+            <Layout>
+              <Update />
+            </Layout>
+          }
+        />
+        <Route
+          path="/board"
+          element={
+            <Layout>
+              <Board />
             </Layout>
           }
         />

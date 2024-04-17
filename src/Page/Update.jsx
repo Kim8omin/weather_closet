@@ -2,9 +2,11 @@ import styled from "styled-components";
 import arrow from "../assets/arrow.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-const PostForm = () => {
+const Update = () => {
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -22,6 +24,10 @@ const PostForm = () => {
     const file = e.target.files[0];
     setImageFile(file);
   };
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const postId = location.pathname.split("/")[2];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +39,8 @@ const PostForm = () => {
       formData.append("posting", form.posting);
       formData.append("image", imagefile);
 
-      const response = await axios.post(
-        "http://localhost:3001/create",
+      const response = await axios.put(
+        `http://localhost:3001/posts/${postId}`,
         formData,
         {
           headers: {
@@ -42,20 +48,20 @@ const PostForm = () => {
           },
         }
       );
+      navigate("/board");
 
       console.log(response.data);
+
       setForm({
         name: "",
         title: "",
         posting: "",
       });
       setImageFile(null);
-      window.alert("success");
     } catch (error) {
       console.error("Error occurred:", error);
     }
   };
-
   return (
     <PageWrapper>
       <Link to="/">
@@ -98,7 +104,7 @@ const PostForm = () => {
             />
           </div>
           <ButtonWrapper>
-            <StyledButton>Submit</StyledButton>
+            <StyledButton>update</StyledButton>
           </ButtonWrapper>
         </StyledForm>
       </Content>
@@ -106,7 +112,7 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default Update;
 
 const PageWrapper = styled.div`
   background-color: orange;
